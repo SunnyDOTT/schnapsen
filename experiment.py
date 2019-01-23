@@ -25,21 +25,23 @@ import random
 # Define the bot:
 # (we're not using it with the command line tools, so we can just put it here)
 class Bot:
-
     # Probability of moving with non-trump cards
     __non_trump_move = 0.0
-    def __init__(self, non_trump_move=0.0):
+
+    def __init__(self, non_trump_move = 0.0):
         self.__non_trump_move = non_trump_move
 
     def get_move(self, state):
+        moves = state.moves()
 
-        if random.random() < self.__non_trump_move:
-
+        if random.random() < self.__non_trump_move or len(moves) == 1:
             # IMPLEMENT: Make the best non-trump move you can. Use the best_non_trump_card method written below.
-            pass
+            return best_non_trump_card(state)
 
-        #IMPLEMENT: Make a random move (but exclude the best non-trump move from above)
-        pass
+        # IMPLEMENT: Make a random move (but exclude the best non-trump move from above)
+        moves.remove(best_non_trump_card(state))
+        return random.choice(moves)
+
 
 
 def empty(n):

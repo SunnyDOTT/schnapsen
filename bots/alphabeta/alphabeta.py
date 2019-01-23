@@ -21,7 +21,7 @@ class Bot:
 
         return move
 
-    def value(self, state, alpha=float('-inf'), beta=float('inf'), depth = 0):
+    def value(self, state, alpha=float('-inf'), beta=float('inf'), depth=0):
         """
         Return the value of this state and the associated move
         :param State state:
@@ -49,7 +49,7 @@ class Bot:
         for move in moves:
 
             next_state = state.next(move)
-            value, _ = ???
+            value, _ =self.value(next_state, depth=depth + 1)
 
             if maximizing(state):
                 if value > best_value:
@@ -64,7 +64,9 @@ class Bot:
 
             # Prune the search tree
             # We know this state will never be chosen, so we stop evaluating its children
-            if ???:
+            if maximizing(state) and beta <= best_value:
+                break
+            elif not maximizing(state) and alpha >= best_value:
                 break
 
         return best_value, best_move
@@ -80,11 +82,10 @@ def maximizing(state):
     return state.whose_turn() == 1
 
 def heuristic(state):
-    # type: (State) -> float
     """
     Estimate the value of this state: -1.0 is a certain win for player 2, 1.0 is a certain win for player 1
 
     :param state:
     :return: A heuristic evaluation for the given state (between -1.0 and 1.0)
     """
-    return util.ratio_points(state, 1) * 2.0 - 1.0, None
+    return util.difference_points(state, 1) * 2.0 - 1.0, None
