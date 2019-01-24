@@ -7,7 +7,7 @@ MyBot -- A simple strategy:
 """
 
 # Import the API objects
-from api import State
+from api import State, Deck
 import random
 
 
@@ -31,7 +31,6 @@ class Bot:
 
         # All legal moves
         moves = state.moves()
-
         for move in moves:
             if move[1]:  # move[1] exists if there is a marriage possible
                 return move
@@ -51,5 +50,7 @@ class Bot:
             for move in moves:
                 if move[0] and chosen_move[0] % 5 < move[0] % 5:
                     chosen_move = move
+
+        print(state.get_trump_suit(), Deck.get_suit(move[0]), move)
 
         return chosen_move

@@ -1,10 +1,11 @@
-import kb, sys
+import sys
 from kb import KB, Boolean, Integer, Constant
 
 # Define our propositional symbols
 # J1 is true if the card with index 1 is a jack, etc
 # You need to initialise all variables that you need for you strategies and game knowledge.
 # Add those variables here.. The following list is complete for the Play Jack strategy.
+# Init :
 J0 = Boolean('j0')
 J1 = Boolean('j1')
 J2 = Boolean('j2')
@@ -45,6 +46,13 @@ PJ16 = Boolean('pj16')
 PJ17 = Boolean('pj17')
 PJ18 = Boolean('pj18')
 PJ19 = Boolean('pj19')
+# My own init:
+As = []
+PAs = []
+
+for i in range(0, 20):
+    As.append(Boolean('a%d' % i))
+    PAs.append(Boolean('pa%d' % i))
 
 # Create a new knowledge base
 kb = KB()
@@ -56,6 +64,7 @@ kb.add_clause(J9)
 kb.add_clause(J14)
 kb.add_clause(J19)
 # Add here whatever is needed for your strategy.
+
 
 # DEFINITION OF THE STRATEGY
 # Add clauses (This list is sufficient for this strategy)
@@ -70,8 +79,22 @@ kb.add_clause(~PJ9, J9)
 kb.add_clause(~PJ14, J14)
 kb.add_clause(~PJ19, J19)
 # Add here other strategies
+# As are at index 0, 5, 10 & 15. So I'll add those clauses to the kb. Adding all [0, 5, 10, 15] PAi <--> Ai
+for i in range(0, 20, 5):
+    kb.add_clause(As[i])
+    kb.add_clause(As[i], ~PAs[i])
+    kb.add_clause(~As[i], PAs[i])
 
-kb.add_clause(~PJ4)
+
+
+#kb.add_clause(~PJ4)
+
+#kb.add_clause(~PAs[0])
+#kb.add_clause(~PAs[5])
+#kb.add_clause(~PAs[10])
+#kb.add_clause(~PAs[15])
+#kb.add_clause(PAs[5])
+
 # print all models of the knowledge base
 for model in kb.models():
     print(model)

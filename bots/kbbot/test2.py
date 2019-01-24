@@ -1,4 +1,4 @@
-import kb, sys
+import sys
 from kb import KB, Boolean, Integer, Constant
 
 # Define our integer symbols
@@ -19,5 +19,5 @@ constraint = x - (z + y) < x - (y - z)
 print(constraint)
 
 q = 15
-constraint = q * x  == x - (y - q * z)
+constraint = q * x == x - (y - q * z)
 print(constraint)
