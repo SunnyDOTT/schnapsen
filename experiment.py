@@ -118,6 +118,7 @@ for i in range(STEPS):
             #TODO Maybe add points for state.winner()
             if state.finished():
                 winner, points = state.winner()
+
                 if winner == 1:
                     won_by_1[i][j] += points
                 else:

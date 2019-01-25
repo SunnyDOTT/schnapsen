@@ -51,6 +51,6 @@ class Bot:
                 if move[0] and chosen_move[0] % 5 < move[0] % 5:
                     chosen_move = move
 
-        print(state.get_trump_suit(), Deck.get_suit(move[0]), move)
+        print(state.get_trump_suit(), Deck.get_suit(move[0]), move, state.get_pending_points(1))
 
         return chosen_move
