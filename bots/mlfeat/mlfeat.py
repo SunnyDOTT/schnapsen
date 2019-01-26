@@ -136,6 +136,16 @@ def features(state):
     # Add opponent's played card to feature set
     opponents_played_card = state.get_opponents_played_card()
 
+    # Here are the features I added extra ############################
+    # Single numbers from state
+    feature_set.append(util.ratio_points(state, state.whose_turn()))
+    feature_set.append(util.difference_points(state, state.whose_turn()))
+
+    # Design matrices
+    feature_set.append(p1_points*p1_points)
+    feature_set.append(p2_points*p2_points)
+
+
     ################## You do not need to do anything below this line ########################
 
     perspective = state.get_perspective()
